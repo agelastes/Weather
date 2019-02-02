@@ -7,45 +7,40 @@ import WeatherList from './WeatherList';
 
 class App extends Component {
 
-  data = [];
 
   state = {
-    loading: false,
-    name: null,
-    id: 0,
-    temp: null,
+      loading: false,
+      name: null,
+      temp: null,
+      id: null,
+      dataCity: []
+  };
+
+  inputRead = (e) => {
+    this.setState({name: e.target.value});
+  };
+
+  requestCity = () => {
+    this.setState({loading: true});
+
+    fetch('http://api.openweathermap.org/data/2.5/weather?q='
+        + this.state.name +
+        '&appid=8e3145fe3bc2e2e42c29a6c323b46d41&units=metric')
+        .then((response) => response.json())
+        .then((response) =>
+        {
+
+          const data = this.state.data.concat({name: this.state.name, temp: response.main.temp, id: response.id});
+          this.setState({dataCity: data, temp: response.main.temp, loading: false, id: response.id});
+
+        });
 
   };
 
-   inputRead = (e) => {
-     this.setState({name: e.target.value});
-  };
+  clearDashboard = () => {
 
-   requestCity = () => {
-     this.setState({loading: true});
-
-     fetch('http://api.openweathermap.org/data/2.5/weather?q='
-         + this.state.name +
-         '&appid=8e3145fe3bc2e2e42c29a6c323b46d41&units=metric')
-         .then((Response) => Response.json())
-         .then((Response) =>
-         {
-           this.setState({temp: Response.main.temp});
-           this.setState({loading: false});
-           this.data.push({name: this.state.name, temp: this.state.temp});
-           console.log(this.data[this.state.id]);
-           this.setState({id: this.state.id + 1});
-         });
-
-   };
-
-   clearDashboard = () => {
-
-     this.data = [];
-     this.refs.inputCity.value = "";
-     this.setState({id: 0});
-     this.setState({temp: null});
-     this.setState({name: null});
+      this.setState({dataCity: [], name: null, temp: null, loading: false});
+      this.refs.inputCity.value = "";
 
   };
 
@@ -54,13 +49,13 @@ class App extends Component {
   render() {
     if ((this.temp === null) && (this.state.loading))
     {
-       return null;
+      return null;
     }
     else
     {
       return (
           <div className="App">
-            <input onChange={this.inputRead} ref = "inputCity">
+            <input onChange={this.inputRead} placeholder = "Введите название города" ref = "inputCity">
 
             </input>
             <input type = "Button" value="отправить" onClick={this.requestCity}>
@@ -69,7 +64,7 @@ class App extends Component {
             <input type = "Button" value="очистить"  onClick={this.clearDashboard}>
             </input>
 
-            <WeatherList data = {this.data}/>
+            <WeatherList data = {this.state.dataCity}/>
 
           </div>
       );
