@@ -4,13 +4,12 @@ import WeatherList from './WeatherList';
 
 
 
-
 class App extends Component {
 
 
   state = {
       loading: false,
-      name: null,
+      name: "",
       temp: null,
       id: null,
       dataCity: []
@@ -30,7 +29,8 @@ class App extends Component {
         .then((response) =>
         {
 
-          const data = this.state.data.concat({name: this.state.name, temp: response.main.temp, id: response.id});
+          const data = this.state.dataCity.concat([{name: this.state.name, temp: response.main.temp,
+              id: response.id, road: response.weather[0].icon}]);
           this.setState({dataCity: data, temp: response.main.temp, loading: false, id: response.id});
 
         });
@@ -39,36 +39,43 @@ class App extends Component {
 
   clearDashboard = () => {
 
-      this.setState({dataCity: [], name: null, temp: null, loading: false});
-      this.refs.inputCity.value = "";
+      this.setState({dataCity: [], name: "", temp: null, loading: false});
+
+  };
+
+  deleteCity = (id) => {
+
+      const oldData = [...this.state.dataCity];
+      const newData = oldData.filter(data => data.id !== id);
+      this.setState({dataCity: newData});
 
   };
 
 
 
   render() {
-    if ((this.temp === null) && (this.state.loading))
-    {
-      return null;
-    }
-    else
-    {
-      return (
+
+    if ((this.temp === null) && (this.state.loading)) return null;
+
+    else return (
           <div className="App">
-            <input onChange={this.inputRead} placeholder = "Введите название города" ref = "inputCity">
+              <div className="Input">
+                  <input className="InputCityName" onChange={this.inputRead} placeholder={this.state.name}
+                         ref="inputCity">
 
-            </input>
-            <input type = "Button" value="отправить" onClick={this.requestCity}>
-            </input>
+                  </input>
+                  <input className="GetCity" type="Button" value="Send" onClick={this.requestCity}>
+                  </input>
 
-            <input type = "Button" value="очистить"  onClick={this.clearDashboard}>
-            </input>
+                  <input className="Cleaner" type="Button" value="Delete" onClick={this.clearDashboard}>
+                  </input>
+              </div>
 
-            <WeatherList data = {this.state.dataCity}/>
+
+              <WeatherList data={this.state.dataCity} deleteItem={() => this.deleteCity()}/>
 
           </div>
       );
-    }
   }
 
 
