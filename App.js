@@ -60,8 +60,8 @@ class App extends Component {
     else return (
           <div className="App">
               <div className="Input">
-                  <input className="InputCityName" onChange={this.inputRead} placeholder={this.state.name}
-                         ref="inputCity">
+                  <input className="InputCityName" onChange={this.inputRead} placeholder="Введите название города"
+                         value={this.state.name}>
 
                   </input>
                   <input className="GetCity" type="Button" value="Send" onClick={this.requestCity}>
