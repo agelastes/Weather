@@ -3,21 +3,17 @@ import './Weather.css';
 
 
 
-
 const Weather = (props) => {
 
-    const {name, temp} = this.props;
+    const {data} = props;
 
   return(
 
-      <div>
-          <div className="WeatherList-item">
-              <h2>{name}</h2>
-              <h2>{temp + " °C"}</h2>
-          </div>
-          <div>
-              <input type = "Button" value = 'удалить' onClick={props.deleteItem} />
-          </div>
+      <div className='weather'>
+          <h3>{data.name}</h3>
+          <div>{data.temp} ℃</div>
+          <img src={"http://openweathermap.org/img/w/" + props.road + ".png"} alt = "img"/>
+          <div className='weather__delete' onClick={() => props.deleteCity(data.id)}>Delete</div>
       </div>
 
     );
@@ -27,34 +23,14 @@ const Weather = (props) => {
 
 class WeatherList extends Component {
 
-    constructor(props)
-
-    {
-        super(props);
-
-        this.state = {
-          cityDates: props.data
-        };
-    }
-
-
-    deleteCity = (id) => {
-
-        alert(this.state.data);
-
-        this.setState({data: []});
-
-
-    };
-
-
     render() {
 
         const weatherList = this.props.data.map((data) =>
 
-            <Weather data={data} key={data.id} deleteItem = {() => this.deleteCity(data.id)} />
+            <Weather data={data} deleteCity = {() => this.props.deleteItem()} road = {data.road} key={data.id} />
 
         );
+
 
         return (
 
