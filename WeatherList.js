@@ -13,7 +13,7 @@ const Weather = (props) => {
           <h3>{data.name}</h3>
           <div>{data.temp} ℃</div>
           <img src={"http://openweathermap.org/img/w/" + props.road + ".png"} alt = "img"/>
-          <div className='weather__delete' onClick={() => props.deleteCity(data.id)}>Delete</div>
+          <button className='weather__delete' onClick={() => props.deleteCity(data.id)}>Delete</button>
       </div>
 
     );
@@ -27,7 +27,7 @@ class WeatherList extends Component {
 
         const weatherList = this.props.data.map((data) =>
 
-            <Weather data={data} deleteCity = {() => this.props.deleteItem()} road = {data.road} key={data.id} />
+            <Weather data={data} deleteCity = {() => this.props.deleteCity()} road = {data.road} key={data.id} />
 
         );
 
