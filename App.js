@@ -72,7 +72,7 @@ class App extends Component {
               </div>
 
 
-              <WeatherList data={this.state.dataCity} deleteItem={() => this.deleteCity()}/>
+              <WeatherList data={this.state.dataCity} deleteCity={() => this.deleteCity()}/>
 
           </div>
       );
