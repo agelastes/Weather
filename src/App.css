@@ -1,0 +1,81 @@
+.App {
+  text-align: center;
+  background-image: url("images/sky2.jpg");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.Input {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.InputCityName {
+  justify-self: flex-start;
+  margin-top: 15px;
+  margin-right: 85px;
+  width: 360px;
+  height: 35px;
+  font-size: 30px;
+  border: 1px black inset;
+  padding: 5px;
+  background-color: snow;
+}
+
+.GetCity {
+  margin-top: 15px;
+  margin-left: 45px;
+  background-color: snow;
+  color: green;
+  width: 185px;
+  height: 50px;
+  font-size: 30px;
+  border-radius: 50px;
+  border: 2px green inset;
+}
+
+.Cleaner {
+  margin-top: 15px;
+  margin-left: 10px;
+  background-color: snow;
+  color: red;
+  width: 185px;
+  height: 50px;
+  font-size: 30px;
+  border-radius: 50px;
+  border: 2px red inset;
+}
+
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
